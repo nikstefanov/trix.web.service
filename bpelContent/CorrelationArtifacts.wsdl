@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<definitions name="Correlation"
+        targetNamespace="http://www-inf.it-sudparis.eu/~nguyen_n/teaching_assistant/bpel/using_correlation_sets_in_bpel_processes"
+        xmlns:tns="http://www-inf.it-sudparis.eu/~nguyen_n/teaching_assistant/bpel/using_correlation_sets_in_bpel_processes"
+        xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        >
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <types>
+        <schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
+                targetNamespace="http://www-inf.it-sudparis.eu/~nguyen_n/teaching_assistant/bpel/using_correlation_sets_in_bpel_processes" 
+                xmlns="http://www.w3.org/2001/XMLSchema">
+
+            <element name="CorrelationRequest">
+                <complexType>
+                    <sequence>
+                        <element name="input" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="CorrelationResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="CorrelationRequestMessage">
+        <part name="payload" element="tns:CorrelationRequest"/>
+    </message>
+    <message name="CorrelationResponseMessage">
+        <part name="payload" element="tns:CorrelationResponse"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 ALIASES
+	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	 <vprop:property name="MyCS" type="xsd:int" />
+	 <vprop:propertyAlias propertyName="tns:MyCS"
+      		messageType="tns:CorrelationRequestMessage" part="payload">
+      		<vprop:query><![CDATA[tns:input]]></vprop:query>
+   	 </vprop:propertyAlias>
+   	 <vprop:propertyAlias propertyName="tns:MyCS"
+      		messageType="tns:CorrelationResponseMessage" part="payload">
+      		<vprop:query><![CDATA[tns:result]]></vprop:query>
+   	 </vprop:propertyAlias>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the Correlation BPEL process -->
+    <portType name="Correlation">
+        <operation name="process">
+            <input  message="tns:CorrelationRequestMessage" />
+            <output message="tns:CorrelationResponseMessage"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="Correlation">
+        <plnk:role name="CorrelationProvider" portType="tns:Correlation"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="CorrelationBinding" type="tns:Correlation">
+    	<soap:binding style="document"
+    		transport="http://schemas.xmlsoap.org/soap/http" />
+    	<operation name="process">
+    		<soap:operation
+    			soapAction="http://www-inf.it-sudparis.eu/~nguyen_n/teaching_assistant/bpel/using_correlation_sets_in_bpel_processes/process" />
+    		<input>
+    			<soap:body use="literal" />
+    		</input>
+    		<output>
+    			<soap:body use="literal" />
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="CorrelationService">
+    	<port name="CorrelationPort" binding="tns:CorrelationBinding">
+    		<soap:address location="http://localhost:8080/Correlation" />
+    	</port>
+    </service>
+</definitions>

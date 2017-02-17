@@ -1,0 +1,52 @@
+<definitions
+     name="CachedServer"
+     targetNamespace="http://xmlns.oracle.com/CachedServer"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:pns1="http://xmlns.oracle.com/CachedServer/correlationset"
+     xmlns:client="http://xmlns.oracle.com/CachedServer"     
+    >
+    <import namespace="http://xmlns.oracle.com/CachedServer/correlationset" location="CachedServer_Properties.wsdl"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/CachedServer" schemaLocation="CachedServer.xsd"/>
+        </schema>
+    </types>
+    <message name="CachedServerRequestMessage">
+        <part name="payload" element="client:CachedServerProcessRequest"/>
+    </message>
+    <message name="CachedServerResponseMessage">
+        <part name="payload" element="client:CachedServerProcessResponse"/>
+    </message>
+    <message name="CachedServerUpdateRequestMessage">
+        <part name="payload" element="client:CachedServerUpdateRequest"/>
+    </message>
+    <message name="CachedServerUpdateResponseMessage">
+        <part name="payload" element="client:CachedServerUpdateResponse"/>
+    </message>
+    <portType name="CachedServer">
+        <operation name="process">
+            <input message="client:CachedServerRequestMessage"/>
+            <output message="client:CachedServerResponseMessage"/>
+        </operation>
+        <operation name="Update">
+            <input message="client:CachedServerUpdateRequestMessage"/>
+            <output message="client:CachedServerUpdateResponseMessage"/>
+        </operation>
+    </portType>
+    <plnk:partnerLinkType name="CachedServer">
+        <plnk:role name="CachedServerProvider">
+            <plnk:portType name="client:CachedServer"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <bpws:propertyAlias propertyName="pns1:InstanceIdentifier" messageType="client:CachedServerRequestMessage"
+    part="payload" query="/client:CachedServerProcessRequest/client:input"
+    />
+    <bpws:propertyAlias propertyName="pns1:InstanceIdentifier" messageType="client:CachedServerResponseMessage"
+    part="payload" query="/client:CachedServerProcessResponse/client:instanceId"
+    />
+    <bpws:propertyAlias propertyName="pns1:InstanceIdentifier" messageType="client:CachedServerUpdateRequestMessage"
+    part="payload" query="/client:CachedServerUpdateRequest/client:instanceId"
+    />
+</definitions>

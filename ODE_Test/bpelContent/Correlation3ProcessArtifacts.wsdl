@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<definitions name="Correlation3Process"
+        targetNamespace="http://www.example.org/Correlation3Process"
+        xmlns:tns="http://www.example.org/Correlation3Process"
+        xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        >
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <types>
+        <schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" targetNamespace="http://www.example.org/Correlation3Process">
+            <element name="StringInputElement">
+                <complexType>
+                    <sequence>
+                        <element name="value" type="xsd:string"/>
+                    </sequence>
+                </complexType>
+            </element>
+            
+            <element name="StringOutputElement">
+                <complexType>
+                    <sequence>
+                        <element name="value" type="xsd:string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="IntegerElement">
+                <complexType>
+                    <sequence>
+                        <element name="value" type="xsd:int"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="Correlation3ProcessRequestMessage">
+        <part name="payload" element="tns:IntegerElement"/>
+    </message>
+    <message name="Correlation3ProcessResponseMessage">
+        <part name="payload" element="tns:IntegerElement"/>
+    </message>
+    <message name="IntegerRequestMessage">
+        <part name="value" type="xsd:int"/>
+    </message>
+    
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 ALIASES                                                              
+	 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	 <vprop:property name="integerID" type="xsd:int" />
+	 <vprop:propertyAlias propertyName="tns:integerID"
+      		messageType="tns:Correlation3ProcessRequestMessage" part="payload">
+      		<vprop:query><![CDATA[tns:value]]></vprop:query>
+   	 </vprop:propertyAlias>
+   	 <vprop:propertyAlias propertyName="tns:integerID"
+      		messageType="tns:Correlation3ProcessResponseMessage" part="payload">
+      		<vprop:query><![CDATA[tns:value]]></vprop:query>
+   	 </vprop:propertyAlias>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the Correlation3Process BPEL process -->
+    <portType name="Correlation3Process">
+        <operation name="process">
+            <input  message="tns:Correlation3ProcessRequestMessage" />
+            <output message="tns:Correlation3ProcessResponseMessage"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="Correlation3Process">
+        <plnk:role name="Correlation3ProcessProvider" portType="tns:Correlation3Process"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="Correlation3ProcessBinding"
+    	type="tns:Correlation3Process">
+    	<soap:binding style="document"
+    		transport="http://schemas.xmlsoap.org/soap/http" />
+    	<operation name="process">
+    		<soap:operation
+    			soapAction="http://www.example.org/Correlation3Process/process" />
+    		<input>
+    			<soap:body use="literal" />
+    		</input>
+    		<output>
+    			<soap:body use="literal" />
+    		</output>
+    	</operation>
+    </binding>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="Correlation3ProcessService">
+    	<port name="Correlation3ProcessPort" binding="tns:Correlation3ProcessBinding">
+    		<soap:address location="http://localhost:8080/ode/processes/Correlation3Process" />
+    	</port>
+    </service>
+</definitions>

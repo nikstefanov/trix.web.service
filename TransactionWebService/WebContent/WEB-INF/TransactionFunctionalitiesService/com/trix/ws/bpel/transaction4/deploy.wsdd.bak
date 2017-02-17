@@ -1,0 +1,42 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from TransactionFunctionalitiesService WSDL service -->
+
+  <service name="TransactionFunctionalities" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://transaction4.bpel.ws.trix.com"/>
+      <parameter name="wsdlServiceElement" value="TransactionFunctionalitiesService"/>
+      <parameter name="schemaQualified" value="http://transaction4.bpel.ws.trix.com"/>
+      <parameter name="wsdlServicePort" value="TransactionFunctionalities"/>
+      <parameter name="className" value="com.trix.ws.bpel.transaction4.TransactionFunctionalitiesSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="TransactionFunctionalities"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="updateDb" qname="operNS:updateDb" xmlns:operNS="http://transaction4.bpel.ws.trix.com" returnQName="retNS:updateDbReturn" xmlns:retNS="http://transaction4.bpel.ws.trix.com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:valuesString" xmlns:pns="http://transaction4.bpel.ws.trix.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <fault name="StringException" qname="fns:fault" xmlns:fns="http://transaction4.bpel.ws.trix.com" class="com.trix.ws.bpel.transaction4.StringException" type="tns:StringException" xmlns:tns="http://transaction4.bpel.ws.trix.com"/>
+      </operation>
+      <operation name="rollbackTransaction" qname="operNS:rollbackTransaction" xmlns:operNS="http://transaction4.bpel.ws.trix.com" soapAction="" >
+      </operation>
+      <operation name="commitTransaction" qname="operNS:commitTransaction" xmlns:operNS="http://transaction4.bpel.ws.trix.com" soapAction="" >
+      </operation>
+      <parameter name="allowedMethods" value="commitTransaction updateDb rollbackTransaction"/>
+
+      <typeMapping
+        xmlns:ns="http://transaction4.bpel.ws.trix.com"
+        qname="ns:StringException"
+        type="java:com.trix.ws.bpel.transaction4.StringException"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

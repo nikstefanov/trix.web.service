@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<definitions name="CorrelationTestProcess"
+        targetNamespace="http://sample.bpel.org/bpel/sample"
+        xmlns:tns="http://sample.bpel.org/bpel/sample"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"	
+        xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        >
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <types>
+        <schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
+                targetNamespace="http://sample.bpel.org/bpel/sample" 
+                xmlns="http://www.w3.org/2001/XMLSchema">
+
+            <element name="Integer">
+                <complexType>
+                    <sequence>
+                        <element name="integer" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="String">
+                <complexType>
+                    <sequence>
+                        <element name="string" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="integerRequest">
+		<!-- <part name="value" type="xsd:int" /> -->
+		<part name="value" element="tns:Integer" />		
+	</message>
+	<message name="integerResponse">
+		<!-- <part name="value" type="xsd:int" /> -->
+		<part name="value" element="tns:Integer" />		
+	</message>
+	<message name="stringResponse">
+		<!-- <part name="value" type="xsd:string" /> -->
+		<part name="value" element="tns:String" />
+	</message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+	<portType name="CorrelationTestPortType">
+		<operation name="createInteger">			
+			<output message="tns:integerResponse" name="createIntegerResponse"/>
+		</operation>
+		<operation name="getInteger">
+			<input message="tns:integerRequest" name="getIntegerRequest"/>
+			<output message="tns:integerResponse" name="getIntegerResponse"/>
+		</operation>
+		<operation name="getPowerOfTwo">
+			<input message="tns:integerRequest" name="getPowerOfTwoRequest"/>
+			<output message="tns:integerResponse" name="getPowerOfTwoResponse"/>
+		</operation>
+		<operation name="getCreateTime">
+			<input message="tns:integerRequest" name="getCreateTimeRequest"/>
+			<output message="tns:stringResponse" name="getCreateTimeResponse"/>
+		</operation>
+	</portType>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="CorrelationTestPartnerLinkType">
+        <plnk:role name="CorrelationTestProvider" portType="tns:CorrelationTestPortType"/>
+    </plnk:partnerLinkType>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="CorrelationTestBinding" type="tns:CorrelationTestPortType">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    	<operation name="createInteger">
+    		<soap:operation soapAction="http://sample.bpel.org/bpel/sample/createInteger" />    		
+    		<output>
+    			<soap:body use="literal" />
+    		</output>
+    	</operation>
+    	<operation name="getInteger">
+    		<soap:operation soapAction="http://sample.bpel.org/bpel/sample/getInteger" />
+    		<input>
+    			<soap:body use="literal" />
+    		</input>
+    		<output>
+    			<soap:body use="literal" />
+    		</output>
+    	</operation>
+    	<operation name="getPowerOfTwo">
+    		<soap:operation soapAction="http://sample.bpel.org/bpel/sample/getPowerOfTwo" />
+    		<input>
+    			<soap:body use="literal" />
+    		</input>
+    		<output>
+    			<soap:body use="literal" />
+    		</output>
+    	</operation>
+    	<operation name="getCreateTime">
+    		<soap:operation soapAction="http://sample.bpel.org/bpel/sample/getCreateTime" />
+    		<input>
+    			<soap:body use="literal" />
+    		</input>
+    		<output>
+    			<soap:body use="literal" />
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> 
+    <service name="CorrelationTestProcessService">
+    	<port name="CorrelationTestProcessPort" binding="tns:CorrelationTestBinding">
+    		<soap:address location=" http://localhost:8080/ode/processes/CorrelationTest" />
+    	</port>
+    </service>
+</definitions>

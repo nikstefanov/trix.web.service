@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://javadb.xa.transaction.ws.trix.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://javadb.xa.transaction.ws.trix.com" xmlns:intf="http://javadb.xa.transaction.ws.trix.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://javadb.xa.transaction.ws.trix.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="gtrid" type="xsd:string"/>
+   <element name="bqual" type="xsd:string"/>
+   <element name="formatId" type="xsd:int"/>
+   <element name="commitReturn" type="xsd:string"/>
+   <element name="gtrid1" type="xsd:string"/>
+   <element name="bqual1" type="xsd:string"/>
+   <element name="formatId1" type="xsd:int"/>
+   <element name="rollbackReturn" type="xsd:string"/>
+   <element name="gtrid2" type="xsd:string"/>
+   <element name="bqual2" type="xsd:string"/>
+   <element name="formatId2" type="xsd:int"/>
+   <element name="startFlag" type="xsd:int"/>
+   <element name="values" type="xsd:string"/>
+   <complexType name="StringException">
+    <sequence>
+     <element name="message" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="fault" type="impl:StringException"/>
+   <element name="xidEl">
+    <complexType>
+     <sequence>
+      <element name="gtrid" type="xsd:string"/>
+      <element name="bqual" type="xsd:string"/>
+      <element name="formatId" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="commitResponse">
+      <wsdl:part element="impl:commitReturn" name="commitReturn"/>
+   </wsdl:message>
+   <wsdl:message name="StringException">
+      <wsdl:part element="impl:fault" name="fault"/>
+   </wsdl:message>
+   <wsdl:message name="addOperationRequest">
+      <wsdl:part element="impl:gtrid2" name="gtrid"/>
+      <wsdl:part element="impl:bqual2" name="bqual"/>
+      <wsdl:part element="impl:formatId2" name="formatId"/>
+      <wsdl:part element="impl:startFlag" name="startFlag"/>
+      <wsdl:part element="impl:values" name="values"/>
+   </wsdl:message>
+   <wsdl:message name="addOperationResponse"/>
+   <wsdl:message name="rollbackResponse">
+      <wsdl:part element="impl:rollbackReturn" name="rollbackReturn"/>
+   </wsdl:message>   
+   <wsdl:message name="commitRequest">
+      <wsdl:part element="impl:gtrid" name="gtrid"/>
+      <wsdl:part element="impl:bqual" name="bqual"/>
+      <wsdl:part element="impl:formatId" name="formatId"/>
+   </wsdl:message>
+   <wsdl:message name="rollbackRequest">
+      <wsdl:part element="impl:gtrid1" name="gtrid"/>
+      <wsdl:part element="impl:bqual1" name="bqual"/>
+      <wsdl:part element="impl:formatId1" name="formatId"/>
+   </wsdl:message>
+
+   <wsdl:portType name="TransactionManagerWS">
+
+      <wsdl:operation name="commit" parameterOrder="gtrid bqual formatId">
+
+         <wsdl:input message="impl:commitRequest" name="commitRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:commitResponse" name="commitResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="rollback" parameterOrder="gtrid bqual formatId">
+
+         <wsdl:input message="impl:rollbackRequest" name="rollbackRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:rollbackResponse" name="rollbackResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addOperation" parameterOrder="gtrid bqual formatId startFlag values">
+
+         <wsdl:input message="impl:addOperationRequest" name="addOperationRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addOperationResponse" name="addOperationResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:StringException" name="StringException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="TransactionManagerWSSoapBinding" type="impl:TransactionManagerWS">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="commit">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="commitRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="commitResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="rollback">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="rollbackRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="rollbackResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addOperation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addOperationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addOperationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="StringException">
+
+            <wsdlsoap:fault name="StringException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="TransactionManagerWSService">
+
+      <wsdl:port binding="impl:TransactionManagerWSSoapBinding" name="TransactionManagerWS">
+
+         <wsdlsoap:address location="http://localhost:8090/XATransactionWebSevice/services/TransactionManagerWS"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+  targetNamespace="http://javadb.xa.transaction.ws.trix.com"
+  xmlns:apachesoap="http://xml.apache.org/xml-soap"
+  xmlns:impl="http://javadb.xa.transaction.ws.trix.com"
+  xmlns:intf="http://javadb.xa.transaction.ws.trix.com"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  >
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema
+    elementFormDefault="qualified"
+    targetNamespace="http://javadb.xa.transaction.ws.trix.com"
+    xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="commit">
+    <complexType>
+     <sequence>
+      <element name="gtrid" type="xsd:string"/>
+      <element name="bqual" type="xsd:string"/>
+      <element name="formatId" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="commitResponse">
+    <complexType>
+     <sequence>
+      <element name="commitReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="rollback">
+    <complexType>
+     <sequence>
+      <element name="gtrid" type="xsd:string"/>
+      <element name="bqual" type="xsd:string"/>
+      <element name="formatId" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="rollbackResponse">
+    <complexType>
+     <sequence>
+      <element name="rollbackReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addOperation">
+    <complexType>
+     <sequence>
+      <element name="gtrid" type="xsd:string"/>
+      <element name="bqual" type="xsd:string"/>
+      <element name="formatId" type="xsd:int"/>
+      <element name="startFlag" type="xsd:int"/>
+      <element name="values" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addOperationResponse">
+    <complexType/>
+   </element>
+   <complexType name="StringException">
+    <sequence>
+     <element name="message" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="fault" type="impl:StringException"/>
+  </schema>
+ </wsdl:types>
+ 
+   <wsdl:message name="commitResponse">
+
+      <wsdl:part element="impl:commitResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="StringException">
+
+      <wsdl:part element="impl:fault" name="fault">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addOperationRequest">
+
+      <wsdl:part element="impl:addOperation" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addOperationResponse">
+
+      <wsdl:part element="impl:addOperationResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="rollbackResponse">
+
+      <wsdl:part element="impl:rollbackResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="rollbackRequest">
+
+      <wsdl:part element="impl:rollback" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="commitRequest">
+
+      <wsdl:part element="impl:commit" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="TransactionManagerWS">
+
+      <wsdl:operation name="commit">
+
+         <wsdl:input message="impl:commitRequest" name="commitRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:commitResponse" name="commitResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="rollback">
+
+         <wsdl:input message="impl:rollbackRequest" name="rollbackRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:rollbackResponse" name="rollbackResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addOperation">
+
+         <wsdl:input message="impl:addOperationRequest" name="addOperationRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addOperationResponse" name="addOperationResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:StringException" name="StringException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+ 
+   </wsdl:portType>
+
+   <wsdl:binding name="TransactionManagerWSSoapBinding" type="impl:TransactionManagerWS">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="commit">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="commitRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="commitResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="rollback">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="rollbackRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="rollbackResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addOperation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addOperationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addOperationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="StringException">
+
+            <wsdlsoap:fault name="StringException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="TransactionManagerWSService">
+
+      <wsdl:port binding="impl:TransactionManagerWSSoapBinding" name="TransactionManagerWS">
+
+         <wsdlsoap:address location="http://localhost:8090/XATransactionWebSevice/services/TransactionManagerWS"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

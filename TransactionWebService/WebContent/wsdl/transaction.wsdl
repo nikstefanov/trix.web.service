@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://trix.com/ws/bpel/transaction3" xmlns:intf="http://trix.com/ws/bpel/transaction3" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://trix.com/ws/bpel/transaction3">
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating service 
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	 
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<wsdl:message name="emptyMessage"/>
+	<wsdl:message name="stringMessage">
+		<wsdl:part name="strContent" type="xsd:string"/>
+	</wsdl:message> <!--
+	<wsdl:message name="updateDbRequestMessage">
+		<wsdl:part name="falutCode" type="xsd:string">
+	</wsdl:message>
+	<wsdl:message name="updateDbResponseMessage">
+		<wsdl:part name="falutCode" type="xsd:string">
+	</wsdl:message> -->
+	 
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<wsdl:portType name="transactionPortType">
+		<wsdl:operation name="updateDb">
+			<wsdl:input message="intf:stringMessage" name="updateDbRequest"/>       
+			<wsdl:output message="intf:stringMessage" name="updateDbResponse"/>
+			<wsdl:fault message="intf:stringMessage" name="updateDbFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="commitTransaction">
+           <wsdl:input message="intf:emptyMessage" name="commitRequest"/>
+        </wsdl:operation>
+		<wsdl:operation name="rollbackTransaction">
+           <wsdl:input message="intf:emptyMessage" name="rollbackRequest"/>
+        </wsdl:operation>
+    </wsdl:portType>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     WSDL PORT BINDING DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<wsdl:binding name="transactionSoapBinding" type="impl:transactionPortType">
+		<wsaw:UsingAddressing wsdl:required="true"/>
+		<wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		
+		<wsdl:operation name="updateDb">
+			<wsdlsoap:operation soapAction=""/>
+			<wsdl:input name="updateDbRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="strContent" use="encoded"/>
+			</wsdl:input>
+			<wsdl:output name="updateDbResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="strContent" use="encoded"/>
+			</wsdl:output>
+			<wsdl:fault name="updateDbFault">
+				<wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="updateDbFault" use="encoded"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		
+		<wsdl:operation name="commitTransaction">
+			<wsdlsoap:operation soapAction=""/>
+			<wsdl:input name="commitRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+			</wsdl:input>
+        </wsdl:operation>
+		
+		<wsdl:operation name="rollbackTransaction">
+			<wsdlsoap:operation soapAction=""/>
+			<wsdl:input name="rollbackRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+			</wsdl:input>
+        </wsdl:operation>
+	</wsdl:binding>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     WSDL SERVICE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<wsdl:service name="transactionService">
+		<wsdl:port binding="impl:transactionSoapBinding" name="transaction">
+			<wsdlsoap:address location="http://localhost:8090/TransactionWebService/services/transaction"/>
+		</wsdl:port>
+	</wsdl:service>
+	
+</wsdl:definitions>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions
+	name="IntegerNumbersJavaBinding"
+	targetNamespace="http://www.example.org/IntegerNumbersJavaBinding/"
+	xmlns:tns="http://www.example.org/IntegerNumbersJavaBinding/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:java="http://schemas.xmlsoap.org/wsdl/java/"
+	xmlns:format="http://schemas.xmlsoap.org/wsdl/formatbinding/"
+	xmlns:intf="http://www.example.org/IntegerNumbers/"	
+>
+	<wsdl:import location="IntegerNumbers.wsdl" namespace="http://www.example.org/IntegerNumbers/"/>
+	
+	<wsdl:binding name="IntegerNumbersJavaBinding" type="intf:IntegerNumbersPortType">
+		<java:binding/>
+		<format:typeMapping encoding="Java" style="Java">
+			<format:typeMap formatType="int"   typeName="xsd:int" />
+			<format:typeMap formatType="java.lang.String" typeName="xsd:string"/>
+		</format:typeMapping>
+		<wsdl:operation name="createInteger">
+			<java:operation methodName="createInteger" parameterOrder="value" returnPart="value"/>			
+			<wsdl:output name="createIntegerResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getInteger">
+			<java:operation methodName="getInteger" parameterOrder="value" returnPart="value"/>
+			<wsdl:input name="getIntegerRequest"/>
+			<wsdl:output name="getIntegerResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getPowerOfTwo">
+			<java:operation methodName="getPowerOfTwo" parameterOrder="value" returnPart="value"/>
+			<wsdl:input name="getPowerOfTwoRequest"/>
+			<wsdl:output name="getPowerOfTwoResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getCreateTime">
+			<java:operation methodName="getCreateTime" parameterOrder="value" returnPart="value"/>
+			<wsdl:input name="getCreateTimeRequest"/>
+			<wsdl:output name="getCreateTimeResponse"/>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+</wsdl:definitions>

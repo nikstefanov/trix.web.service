@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions
+	xmlns:tns="http://www.example.org/IntegerNumbersSoapBinding/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	name="IntegerNumbersSoapBinding"
+	targetNamespace="http://www.example.org/IntegerNumbersSoapBinding/"
+	xmlns:intf="http://www.example.org/IntegerNumbers/"	
+>
+	<wsdl:import location="IntegerNumbers.wsdl" namespace="http://www.example.org/IntegerNumbers/"/>
+	
+	<wsdl:binding name="IntegerNumbersSoapBinding" type="intf:IntegerNumbersPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="createInteger">
+			<soap:operation style="document" soapAction=""/>			
+			<wsdl:output name="createIntegerResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getInteger">
+			<soap:operation style="document" soapAction=""/>
+			<wsdl:input name="getIntegerRequest"/>
+			<wsdl:output name="getIntegerResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getPowerOfTwo">
+			<soap:operation style="document" soapAction=""/>
+			<wsdl:input name="getPowerOfTwoRequest"/>
+			<wsdl:output name="getPowerOfTwoResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getCreateTime">
+			<soap:operation style="document" soapAction=""/>
+			<wsdl:input name="getCreateTimeRequest"/>
+			<wsdl:output name="getCreateTimeResponse"/>
+		</wsdl:operation>
+	</wsdl:binding>
+
+</wsdl:definitions>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions
+	name="IntegerNumbers"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"	
+	targetNamespace="http://www.example.org/IntegerNumbers/"
+	xmlns:tns="http://www.example.org/IntegerNumbers/"
+>
+	<wsdl:message name="integerRequest">
+		<wsdl:part name="value" type="xsd:int" />
+	</wsdl:message>
+	<wsdl:message name="integerResponse">
+		<wsdl:part name="value" type="xsd:int" />
+	</wsdl:message>
+	<wsdl:message name="stringResponse">
+		<wsdl:part name="value" type="xsd:string" />
+	</wsdl:message>
+	
+	<wsdl:portType name="IntegerNumbersPortType">
+		<wsdl:operation name="createInteger">			
+			<wsdl:output message="tns:integerResponse" name="createIntegerResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getInteger" parameterOrder="value">
+			<wsdl:input message="tns:integerRequest" name="getIntegerRequest"/>
+			<wsdl:output message="tns:integerResponse" name="getIntegerResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getPowerOfTwo" parameterOrder="value">
+			<wsdl:input message="tns:integerRequest" name="getPowerOfTwoRequest"/>
+			<wsdl:output message="tns:integerResponse" name="getPowerOfTwoResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getCreateTime" parameterOrder="value">
+			<wsdl:input message="tns:integerRequest" name="getCreateTimeRequest"/>
+			<wsdl:output message="tns:stringResponse" name="getCreateTimeResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	
+</wsdl:definitions>

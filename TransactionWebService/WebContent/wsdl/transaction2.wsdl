@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://transaction.bpel.ws.trix.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://transaction.bpel.ws.trix.com" xmlns:intf="http://transaction.bpel.ws.trix.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://transaction.bpel.ws.trix.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="valuesString" type="xsd:string"/>
+   <element name="updateDbReturn" type="xsd:string"/>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="commitTransactionResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="commitTransactionRequest">
+
+   </wsdl:message>
+
+   <wsdl:message name="updateDbResponse">
+
+      <wsdl:part element="impl:updateDbReturn" name="updateDbReturn">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateDbRequest">
+
+      <wsdl:part element="impl:valuesString" name="valuesString">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="rollbackTransactionResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="rollbackTransactionRequest">
+
+   </wsdl:message>
+
+   <wsdl:portType name="TransactionFunctionalities">
+
+      <wsdl:operation name="rollbackTransaction">
+
+         <wsdl:input message="impl:rollbackTransactionRequest" name="rollbackTransactionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:rollbackTransactionResponse" name="rollbackTransactionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="commitTransaction">
+
+         <wsdl:input message="impl:commitTransactionRequest" name="commitTransactionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:commitTransactionResponse" name="commitTransactionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="updateDb" parameterOrder="valuesString">
+
+         <wsdl:input message="impl:updateDbRequest" name="updateDbRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:updateDbResponse" name="updateDbResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="TransactionFunctionalitiesSoapBinding" type="impl:TransactionFunctionalities">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="rollbackTransaction">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="rollbackTransactionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="rollbackTransactionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="commitTransaction">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="commitTransactionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="commitTransactionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="updateDb">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateDbRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateDbResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="TransactionFunctionalitiesService">
+
+      <wsdl:port binding="impl:TransactionFunctionalitiesSoapBinding" name="TransactionFunctionalities">
+
+         <wsdlsoap:address location="http://localhost:8090/TransactionWebService/services/TransactionFunctionalities"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

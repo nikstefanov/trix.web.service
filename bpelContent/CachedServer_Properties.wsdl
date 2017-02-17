@@ -1,0 +1,11 @@
+<definitions
+     name="properties"
+     targetNamespace="http://xmlns.oracle.com/CachedServer/correlationset"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:pns1="http://xmlns.oracle.com/CachedServer"
+    >
+    <bpws:property name="InstanceIdentifier" type="xsd:string"/>
+</definitions>

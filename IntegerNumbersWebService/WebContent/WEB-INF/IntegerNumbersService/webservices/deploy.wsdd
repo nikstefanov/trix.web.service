@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from IntegerNumbersService WSDL service -->
+
+  <service name="IntegerNumbers" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://webservices"/>
+      <parameter name="wsdlServiceElement" value="IntegerNumbersService"/>
+      <parameter name="schemaQualified" value="http://webservices"/>
+      <parameter name="wsdlServicePort" value="IntegerNumbers"/>
+      <parameter name="className" value="webservices.IntegerNumbers"/>
+      <parameter name="wsdlPortType" value="IntegerNumbers"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://webservices" xmlns:retNS="http://webservices" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getInteger" qname="operNS:getInteger" returnQName="retNS:getIntegerReturn" returnType="rtns:int" soapAction="">
+        <parameter xmlns:pns="http://webservices" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:a" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://webservices" xmlns:retNS="http://webservices" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="createInteger" qname="operNS:createInteger" returnQName="retNS:createIntegerReturn" returnType="rtns:int" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://webservices" xmlns:retNS="http://webservices" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getCreateTime" qname="operNS:getCreateTime" returnQName="retNS:getCreateTimeReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://webservices" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:a" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://webservices" xmlns:retNS="http://webservices" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getPowersOfTwo" qname="operNS:getPowersOfTwo" returnQName="retNS:getPowersOfTwoReturn" returnType="rtns:int" soapAction="">
+        <parameter xmlns:pns="http://webservices" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:a" type="tns:int"/>
+      </operation>
+      <parameter name="allowedMethods" value="getCreateTime getInteger createInteger getPowersOfTwo"/>
+
+  </service>
+</deployment>

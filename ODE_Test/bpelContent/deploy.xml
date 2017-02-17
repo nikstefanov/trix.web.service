@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:CorProcess="http://www.example.org/CorProcess/" xmlns:Correlation3Process="http://www.example.org/Correlation3Process" xmlns:TitaniumProcess="http://www.example.org/TitaniumProcess" xmlns:helloWorld="http://helloWorld" xmlns:process="http://xmlns.trix.com/ws/bpel/transaction/process/" xmlns:transaction5.bpel.ws.trix.com="http://transaction5.bpel.ws.trix.com" xmlns:using_correlation_sets_in_bpel_processes="http://www-inf.it-sudparis.eu/~nguyen_n/teaching_assistant/bpel/using_correlation_sets_in_bpel_processes" xmlns:webservices="http://webservices" xmlns:wtp="http://wtp">
+  <process name="helloWorld:HelloWorld">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="helloWorld:HelloWorldProcessService" port="HelloWorldProcessPort"/>
+    </provide>
+    <invoke partnerLink="PartnerLink">
+      <service name="wtp:ConverterService" port="Converter"/>
+    </invoke>
+  </process>
+  <process name="CorProcess:CorProcess">
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="CorProcess:CorProcessService" port="CorProcessPort"/>
+    </provide>
+    <invoke partnerLink="IntegerNumbersPartnerLink">
+      <service name="webservices:IntegerNumbersService" port="IntegerNumbers"/>
+    </invoke>
+  </process>
+  <process name="Correlation3Process:Correlation3Process">
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="Correlation3Process:Correlation3ProcessService" port="Correlation3ProcessPort"/>
+    </provide>
+  </process>
+  <process name="using_correlation_sets_in_bpel_processes:Correlation">
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="using_correlation_sets_in_bpel_processes:CorrelationService" port="CorrelationPort"/>
+    </provide>
+  </process>
+  <process name="process:Transaction">
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="process:TransactionService" port="TransactionPort"/>
+    </provide>
+    <invoke partnerLink="TransactionLink">
+      <service name="transaction5.bpel.ws.trix.com:TransactionFunctionalitiesService" port="TransactionFunctionalities"/>
+    </invoke>
+  </process>
+</deploy>

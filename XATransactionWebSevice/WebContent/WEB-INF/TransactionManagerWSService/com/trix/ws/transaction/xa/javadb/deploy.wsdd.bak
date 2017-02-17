@@ -1,0 +1,52 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from TransactionManagerWSService WSDL service -->
+
+  <service name="TransactionManagerWS" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://javadb.xa.transaction.ws.trix.com"/>
+      <parameter name="wsdlServiceElement" value="TransactionManagerWSService"/>
+      <parameter name="schemaQualified" value="http://javadb.xa.transaction.ws.trix.com"/>
+      <parameter name="wsdlServicePort" value="TransactionManagerWS"/>
+      <parameter name="className" value="com.trix.ws.transaction.xa.javadb.TransactionManagerWSSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="TransactionManagerWS"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="commit" qname="operNS:commit" xmlns:operNS="http://javadb.xa.transaction.ws.trix.com" returnQName="retNS:commitReturn" xmlns:retNS="http://javadb.xa.transaction.ws.trix.com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:gtrid" xmlns:pns="http://javadb.xa.transaction.ws.trix.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:bqual" xmlns:pns="http://javadb.xa.transaction.ws.trix.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:formatId" xmlns:pns="http://javadb.xa.transaction.ws.trix.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="rollback" qname="operNS:rollback" xmlns:operNS="http://javadb.xa.transaction.ws.trix.com" returnQName="retNS:rollbackReturn" xmlns:retNS="http://javadb.xa.transaction.ws.trix.com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:gtrid" xmlns:pns="http://javadb.xa.transaction.ws.trix.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:bqual" xmlns:pns="http://javadb.xa.transaction.ws.trix.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:formatId" xmlns:pns="http://javadb.xa.transaction.ws.trix.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="addOperation" qname="operNS:addOperation" xmlns:operNS="http://javadb.xa.transaction.ws.trix.com" soapAction="" >
+        <parameter qname="pns:gtrid" xmlns:pns="http://javadb.xa.transaction.ws.trix.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:bqual" xmlns:pns="http://javadb.xa.transaction.ws.trix.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:formatId" xmlns:pns="http://javadb.xa.transaction.ws.trix.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:startFlag" xmlns:pns="http://javadb.xa.transaction.ws.trix.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:values" xmlns:pns="http://javadb.xa.transaction.ws.trix.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <fault name="StringException" qname="fns:fault" xmlns:fns="http://javadb.xa.transaction.ws.trix.com" class="com.trix.ws.transaction.xa.javadb.StringException" type="tns:StringException" xmlns:tns="http://javadb.xa.transaction.ws.trix.com"/>
+      </operation>
+      <parameter name="allowedMethods" value="addOperation commit rollback"/>
+
+      <typeMapping
+        xmlns:ns="http://javadb.xa.transaction.ws.trix.com"
+        qname="ns:StringException"
+        type="java:com.trix.ws.transaction.xa.javadb.StringException"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

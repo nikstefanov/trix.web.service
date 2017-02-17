@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	targetNamespace="http://webservices"
+	xmlns:apachesoap="http://xml.apache.org/xml-soap"
+	xmlns:impl="http://webservices"
+	xmlns:intf="http://webservices"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+>
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://webservices" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getInteger">
+    <complexType>
+     <sequence>
+      <element name="a" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getIntegerResponse">
+    <complexType>
+     <sequence>
+      <element name="getIntegerReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="createInteger">
+    <complexType/>
+   </element>
+   <element name="createIntegerResponse">
+    <complexType>
+     <sequence>
+      <element name="createIntegerReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getCreateTime">
+    <complexType>
+     <sequence>
+      <element name="a" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getCreateTimeResponse">
+    <complexType>
+     <sequence>
+      <element name="getCreateTimeReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPowersOfTwo">
+    <complexType>
+     <sequence>
+      <element name="a" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPowersOfTwoResponse">
+    <complexType>
+     <sequence>
+      <element name="getPowersOfTwoReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types> 
+    
+   <vprop:property name="integerID" type="xsd:int" />
+
+   <wsdl:message name="getPowersOfTwoResponse">
+
+      <wsdl:part element="impl:getPowersOfTwoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCreateTimeRequest">
+
+      <wsdl:part element="impl:getCreateTime" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIntegerResponse">
+
+      <wsdl:part element="impl:getIntegerResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createIntegerResponse">
+
+      <wsdl:part element="impl:createIntegerResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIntegerRequest">
+
+      <wsdl:part element="impl:getInteger" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPowersOfTwoRequest">
+
+      <wsdl:part element="impl:getPowersOfTwo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCreateTimeResponse">
+
+      <wsdl:part element="impl:getCreateTimeResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createIntegerRequest">
+
+      <wsdl:part element="impl:createInteger" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+   
+   <vprop:propertyAlias propertyName="intf:integerID"
+
+      messageType="intf:createIntegerResponse" part="parameters">
+
+      <vprop:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[impl:createIntegerReturn]]></vprop:query>
+
+   </vprop:propertyAlias>
+   
+   <vprop:propertyAlias propertyName="intf:integerID"
+
+      messageType="intf:getIntegerRequest" part="parameters">
+
+      <vprop:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[impl:a]]></vprop:query>
+
+   </vprop:propertyAlias>
+   
+   
+
+   <wsdl:portType name="IntegerNumbersPortType">
+
+      <wsdl:operation name="getInteger">
+
+         <wsdl:input message="impl:getIntegerRequest" name="getIntegerRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getIntegerResponse" name="getIntegerResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createInteger">
+
+         <wsdl:input message="impl:createIntegerRequest" name="createIntegerRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:createIntegerResponse" name="createIntegerResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCreateTime">
+
+         <wsdl:input message="impl:getCreateTimeRequest" name="getCreateTimeRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getCreateTimeResponse" name="getCreateTimeResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPowersOfTwo">
+
+         <wsdl:input message="impl:getPowersOfTwoRequest" name="getPowersOfTwoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getPowersOfTwoResponse" name="getPowersOfTwoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="IntegerNumbersSoapBinding" type="impl:IntegerNumbersPortType">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getInteger">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getIntegerRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getIntegerResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createInteger">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createIntegerRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createIntegerResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCreateTime">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getCreateTimeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getCreateTimeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPowersOfTwo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPowersOfTwoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPowersOfTwoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="IntegerNumbersService">
+
+      <wsdl:port binding="impl:IntegerNumbersSoapBinding" name="IntegerNumbers">
+
+         <wsdlsoap:address location="http://localhost:8090/IntegerNumbersWebService/services/IntegerNumbers"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+   
+   <plnk:partnerLinkType name="IntegerNumbersPLT">
+    	<plnk:role name="IntegerNumbersRole" portType="intf:IntegerNumbersPortType"/>
+   	</plnk:partnerLinkType>
+
+</wsdl:definitions>

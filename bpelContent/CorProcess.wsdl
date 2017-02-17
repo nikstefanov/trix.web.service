@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions
+	xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.example.org/CorProcess/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	name="CorProcess"
+	targetNamespace="http://www.example.org/CorProcess/"
+>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/CorProcess/">
+      <xsd:element name="NewOperation">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="in" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="NewOperationResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="NewOperationRequest">
+    <wsdl:part element="tns:NewOperation" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="NewOperationResponse">
+    <wsdl:part element="tns:NewOperationResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="CorProcess">
+    <wsdl:operation name="NewOperation"> <!-- 
+      <wsdl:input message="tns:NewOperationRequest"/>  -->
+      <wsdl:output message="tns:NewOperationResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CorProcessSOAP" type="tns:CorProcess">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="NewOperation">
+      <soap:operation soapAction="http://www.example.org/CorProcess/NewOperation"/> <!-- 
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input> -->
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CorProcess">
+    <wsdl:port binding="tns:CorProcessSOAP" name="CorProcessSOAP">
+      <soap:address location="http://localhost:8080/ode/processes/CorProcess"/>
+    </wsdl:port>
+  </wsdl:service>
+  <plnk:partnerLinkType name="CorProcessPLT">
+    <plnk:role name="CorProcessRole" portType="tns:CorProcess"/>
+  </plnk:partnerLinkType>
+</wsdl:definitions>
